@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "-[ViewController collisionBehavior:beganContactForItem:withItem:atPoint:]:ViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[ViewController restartBall]:ViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "pushBehavior.active">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[ViewController collisionBehavior:beganContactForItem:withBoundaryIdentifier:atPoint:]:ViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "pushBehavior.active ">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

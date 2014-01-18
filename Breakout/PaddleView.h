@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  PaddleView.h
 //  Breakout
 //
 //  Created by Matthew Voracek on 1/16/14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController <UICollisionBehaviorDelegate>
+@interface PaddleView : UIView
 
 @end
