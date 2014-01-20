@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Khg-a1-jZw" customClass="PaddleView">
-                                <rect key="frame" x="110" y="533" width="100" height="10"/>
+                                <rect key="frame" x="110" y="516" width="100" height="10"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
@@ -42,7 +42,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Score : 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9jt-r5-r5t">
-                                <rect key="frame" x="20" y="547" width="90" height="21"/>
+                                <rect key="frame" x="20" y="547" width="111" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Lives:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Ck-0p-fLf">
+                                <rect key="frame" x="192" y="547" width="69" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
@@ -57,6 +64,7 @@
                     </view>
                     <connections>
                         <outlet property="ballView" destination="2v4-YI-FLB" id="Zf3-kd-oCv"/>
+                        <outlet property="numberOfLivesLeft" destination="4Ck-0p-fLf" id="ox7-52-YFS"/>
                         <outlet property="paddleView" destination="Khg-a1-jZw" id="WzC-dD-0pn"/>
                         <outlet property="score" destination="9jt-r5-r5t" id="pQp-sN-7Vi"/>
                         <outlet property="timerDisplay" destination="bFg-dL-SEa" id="P1a-bd-fGt"/>

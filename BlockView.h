@@ -10,4 +10,6 @@
 
 @interface BlockView : UIView
 
+@property int numberOfHitsNecessaryForDissapearing;
+
 @end
