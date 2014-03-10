@@ -28,12 +28,16 @@
     UIDynamicItemBehavior *ballDynamicBehavior;
     UIDynamicItemBehavior *blockDynamicBehavior;
     
+    NSArray *arrayHoldingSecondPaddleView;
     
+  /*
     UIPushBehavior *pushBehaviorForAdvancedLevel;
-    UIPushBehavior *secondPaddlePushBehavior;
+  
     UICollisionBehavior *collisionBehaviorForAdvancedLevel;
     UIDynamicAnimator *dynamicAnimatorForAdvancedLevel;
+   */
     UIDynamicItemBehavior *secondPaddleDynamicBehavior;
+    UIPushBehavior *secondPaddlePushBehavior;
     
     UISnapBehavior *snapBallBehavior;
     BOOL ballHitTheGround;
@@ -64,7 +68,7 @@
 
 
 #define NUMBER_ROWS 6
-#define NUMBER_COLS 1
+#define NUMBER_COLS 6
 
 
 - (void)viewDidLoad
@@ -87,31 +91,16 @@
     
     timerDisplay.text = [NSString stringWithFormat:@"%i", timeLeft];
     
-    dynamicAnimator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
-    pushBehavior = [[UIPushBehavior alloc]initWithItems:@[ballView] mode:UIPushBehaviorModeInstantaneous];
-    collisionBehavior = [[UICollisionBehavior alloc] initWithItems:@[ballView,paddleView]];
-//    collisionBehavior.collisionDelegate = self;
+     pushBehavior = [[UIPushBehavior alloc]initWithItems:@[ballView] mode:UIPushBehaviorModeInstantaneous];
+    pushBehavior.active = NO;
     
-    paddleDynamicBehavior = [[UIDynamicItemBehavior alloc]initWithItems:@[paddleView]];
-    paddleDynamicBehavior.allowsRotation = NO;
-    paddleDynamicBehavior.density = 10000000.0;
-    paddleDynamicBehavior.elasticity = 1.0;
-    paddleDynamicBehavior.friction = 0.0;
-    paddleDynamicBehavior.resistance = 0.0;
-    
-    
-    [dynamicAnimator addBehavior:paddleDynamicBehavior];
-    
-    collisionBehavior.collisionMode = UICollisionBehaviorModeEverything;
-    collisionBehavior.translatesReferenceBoundsIntoBoundary = YES;
-    
-    [dynamicAnimator addBehavior:collisionBehavior];
-}
+    }
 - (void) settingInitialValuesForAdvancedLevel {
     
-    secondPaddleView = [[PaddleView alloc] initWithFrame: CGRectMake (0, 320, 80.0, 10.0)];
+    secondPaddleView = [[PaddleView alloc] initWithFrame: CGRectMake (100, 320, 50.0, 10.0)];
     [self.view addSubview:secondPaddleView];
     secondPaddleView.backgroundColor = [UIColor greenColor];
+    arrayHoldingSecondPaddleView = [[NSArray alloc]initWithObjects:secondPaddleView, nil];
 
     
     numberOfBricksInTheGame = NUMBER_COLS * NUMBER_ROWS;
@@ -124,43 +113,6 @@
     
     timerDisplay.text = [NSString stringWithFormat:@"%i", timeLeft];
     
-    dynamicAnimatorForAdvancedLevel = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
-    pushBehavior = [[UIPushBehavior alloc]initWithItems:@[ballView] mode:UIPushBehaviorModeInstantaneous];
-    collisionBehaviorForAdvancedLevel = [[UICollisionBehavior alloc] initWithItems:@[ballView,paddleView, secondPaddleView]];
-    //    collisionBehavior.collisionDelegate = self;
-    
-    paddleDynamicBehavior = [[UIDynamicItemBehavior alloc]initWithItems:@[paddleView]];
-    paddleDynamicBehavior.allowsRotation = NO;
-    paddleDynamicBehavior.density = 10000000.0;
-    paddleDynamicBehavior.elasticity = 1.0;
-    paddleDynamicBehavior.friction = 0.0;
-    paddleDynamicBehavior.resistance = 0.0;
-    
-    secondPaddlePushBehavior = [[UIPushBehavior alloc]initWithItems:@[secondPaddleView] mode:UIPushBehaviorModeInstantaneous];
-    secondPaddlePushBehavior.pushDirection = CGVectorMake(1.0, 0.0);
-    secondPaddlePushBehavior.active = YES;
-    secondPaddlePushBehavior.magnitude = 1000;
-    
-    [dynamicAnimatorForAdvancedLevel addBehavior:secondPaddlePushBehavior];
-    
-    
-    [dynamicAnimatorForAdvancedLevel addBehavior:paddleDynamicBehavior];
-
-    
-    secondPaddleDynamicBehavior = [[UIDynamicItemBehavior alloc]initWithItems:@[secondPaddleView]];
-    secondPaddleDynamicBehavior.allowsRotation = NO;
-    secondPaddleDynamicBehavior.density = 10000000.0;
-    secondPaddleDynamicBehavior.elasticity = 1.0;
-    secondPaddleDynamicBehavior.friction = 0.0;
-    secondPaddleDynamicBehavior.resistance = 0.0;
-
-    
-    
-    collisionBehaviorForAdvancedLevel.collisionMode = UICollisionBehaviorModeEverything;
-    collisionBehaviorForAdvancedLevel.translatesReferenceBoundsIntoBoundary = YES;
-    
-    [dynamicAnimatorForAdvancedLevel addBehavior:collisionBehaviorForAdvancedLevel];
-
 
     
 }
@@ -214,9 +166,27 @@
 
 - (void) beginnerLevelGame {
     
+    dynamicAnimator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
+
+    paddleDynamicBehavior = [[UIDynamicItemBehavior alloc]initWithItems:@[paddleView]];
+    paddleDynamicBehavior.allowsRotation = NO;
+    paddleDynamicBehavior.density = 10000000.0;
+    paddleDynamicBehavior.elasticity = 1.0;
+    paddleDynamicBehavior.friction = 0.0;
+    paddleDynamicBehavior.resistance = 0.0;
+    
+    [dynamicAnimator addBehavior:paddleDynamicBehavior];
+    
+    collisionBehavior = [[UICollisionBehavior alloc] initWithItems:@[ballView,paddleView]];
+    collisionBehavior.collisionMode = UICollisionBehaviorModeEverything;
+    collisionBehavior.translatesReferenceBoundsIntoBoundary = YES;
+    
+    [dynamicAnimator addBehavior:collisionBehavior];
+
+    
     pushBehavior.pushDirection = CGVectorMake(0.5, 0.5);
     pushBehavior.magnitude = 5;
-    pushBehavior.active = NO;
+   pushBehavior.active = NO;
     
     [dynamicAnimator addBehavior:pushBehavior];
     
@@ -237,6 +207,24 @@
 }
 
 - (void) intermediateLevelGame {
+    
+    dynamicAnimator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
+    
+    paddleDynamicBehavior = [[UIDynamicItemBehavior alloc]initWithItems:@[paddleView]];
+    paddleDynamicBehavior.allowsRotation = NO;
+    paddleDynamicBehavior.density = 10000000.0;
+    paddleDynamicBehavior.elasticity = 1.0;
+    paddleDynamicBehavior.friction = 0.0;
+    paddleDynamicBehavior.resistance = 0.0;
+    
+    [dynamicAnimator addBehavior:paddleDynamicBehavior];
+    
+    collisionBehavior = [[UICollisionBehavior alloc] initWithItems:@[ballView,paddleView]];
+    collisionBehavior.collisionMode = UICollisionBehaviorModeEverything;
+    collisionBehavior.translatesReferenceBoundsIntoBoundary = YES;
+    
+    [dynamicAnimator addBehavior:collisionBehavior];
+
     
     pushBehavior.pushDirection = CGVectorMake(0.5, 0.5);
     pushBehavior.magnitude = 7;
@@ -261,20 +249,50 @@
 
 - (void) advancedLevelGame {
     
+    
+    dynamicAnimator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
+    pushBehavior = [[UIPushBehavior alloc]initWithItems:@[ballView] mode:UIPushBehaviorModeInstantaneous];
+    
+    collisionBehavior = [[UICollisionBehavior alloc] initWithItems:@[ballView,paddleView, secondPaddleView]];
+    collisionBehavior.collisionDelegate = self;
+    collisionBehavior.collisionMode = UICollisionBehaviorModeEverything;
+    collisionBehavior.translatesReferenceBoundsIntoBoundary = YES;
+    
+    [dynamicAnimator addBehavior:collisionBehavior];
+    
+    
+    paddleDynamicBehavior = [[UIDynamicItemBehavior alloc]initWithItems:@[paddleView]];
+    paddleDynamicBehavior.allowsRotation = NO;
+    paddleDynamicBehavior.density = 10000000.0;
+    paddleDynamicBehavior.elasticity = 1.0;
+    paddleDynamicBehavior.friction = 0.0;
+    paddleDynamicBehavior.resistance = 0.0;
+    
+    [dynamicAnimator addBehavior:paddleDynamicBehavior];
+
+
+    
     secondPaddlePushBehavior = [[UIPushBehavior alloc]initWithItems:@[secondPaddleView] mode:UIPushBehaviorModeInstantaneous];
     secondPaddlePushBehavior.pushDirection = CGVectorMake(1.0, 0.0);
-    secondPaddlePushBehavior.magnitude = 1000;
+    secondPaddlePushBehavior.magnitude = 100000;
+    secondPaddlePushBehavior.active = NO;
+    [dynamicAnimator addBehavior:secondPaddlePushBehavior];
     
-    [dynamicAnimatorForAdvancedLevel addBehavior:secondPaddleDynamicBehavior];
+    secondPaddleDynamicBehavior = [[UIDynamicItemBehavior alloc]initWithItems:@[secondPaddleView]];
+    secondPaddleDynamicBehavior.allowsRotation = NO;
+    secondPaddleDynamicBehavior.elasticity = 1.0;
+    secondPaddleDynamicBehavior.friction = 0.0;
+    secondPaddleDynamicBehavior.resistance = 0.0;
+    secondPaddleDynamicBehavior.density = 1000000.0;
+    
+    [dynamicAnimator addBehavior:secondPaddleDynamicBehavior];
 
     
     pushBehavior.pushDirection = CGVectorMake(0.5, 0.5);
-    pushBehavior.magnitude = 7;
+    pushBehavior.magnitude = 70;
     pushBehavior.active = NO;
     
     [dynamicAnimator addBehavior:pushBehavior];
-    
-    secondPaddlePushBehavior.active = YES;
     
     
     ballDynamicBehavior = [[UIDynamicItemBehavior alloc] initWithItems:@[ballView]];
@@ -282,7 +300,7 @@
     ballDynamicBehavior.elasticity = 1.0;
     ballDynamicBehavior.friction = 0.0;
     ballDynamicBehavior.resistance = 0.0;
-    ballDynamicBehavior.density = 75;
+    ballDynamicBehavior.density = 1000;
     
     [dynamicAnimator addBehavior:ballDynamicBehavior];
 
@@ -314,6 +332,11 @@
 
         // this is if the ball hits the ground
         
+        if (currentGameIsAAdvancedGame){
+            secondPaddlePushBehavior.active = YES;
+
+        }
+        
         pushBehavior.active = YES;
         [timer invalidate];
 
@@ -344,22 +367,33 @@
     
     [paddleDynamicBehavior removeItem:paddleView];
     [pushBehavior removeItem:ballView];
+    [collisionBehavior removeAllBoundaries];
+    [dynamicAnimator removeAllBehaviors];
     
-//    [pushBehavior removeItem:paddleView];
     
     if (currentGameIsAAdvancedGame) {
-    
-    [collisionBehaviorForAdvancedLevel removeAllBoundaries];
-    [dynamicAnimatorForAdvancedLevel removeAllBehaviors];
+
+        for (PaddleView *myPaddleView in arrayHoldingSecondPaddleView) {
+            if ([myPaddleView isKindOfClass:[paddleView class]]){
+                [myPaddleView removeFromSuperview];
+                
+            }
+        }
+
     [secondPaddlePushBehavior removeItem:secondPaddleView];
-        [pushBehaviorForAdvancedLevel removeItem:secondPaddleView];
+    [pushBehavior removeItem:secondPaddleView];
+        secondPaddlePushBehavior = nil;
+        secondPaddleDynamicBehavior = nil;
         
-    } else {
-        
-        [collisionBehavior removeAllBoundaries];
-        [dynamicAnimator removeAllBehaviors];
         
     }
+    
+    pushBehavior = nil;
+    collisionBehavior = nil;
+    dynamicAnimator = nil;
+    paddleDynamicBehavior = nil;
+    
+    
     for (BlockView *block in self.view.subviews) {
         if ([block isKindOfClass:[BlockView class]]){
             [block removeFromSuperview];
@@ -433,8 +467,6 @@
 - (void) addBlocksForAdvancedLevel {
     
     
-
-    
     int brickX = 0;
     int brickY = 60;
     
@@ -487,52 +519,7 @@
 
 
     
-/*
-    for (int j=0; j < NUMBER_COLS; j++)
-    {
-        brickX = 0;
-        
-        for (int i=0; i < NUMBER_ROWS; i++)
-        {
-            NSLog(@"%s", __PRETTY_FUNCTION__);
-            
-            BlockView *block = [[BlockView alloc] initWithFrame: CGRectMake (brickX, brickY, 50.0, 10.0)];
-            blockDynamicBehavior = [[UIDynamicItemBehavior alloc]initWithItems:@[block]];
-            [self.view addSubview:block];
-            block.backgroundColor = [UIColor whiteColor];
-            [collisionBehavior addItem:block];
-            [blockDynamicBehavior addItem:block];
-            
-            
-            blockDynamicBehavior.allowsRotation = NO;
-            blockDynamicBehavior.elasticity = 1.0;
-            blockDynamicBehavior.friction = 0.0;
-            blockDynamicBehavior.resistance = 0.0;
-            blockDynamicBehavior.density = 100000.0;
-            [dynamicAnimator addBehavior:blockDynamicBehavior];
-            block.backgroundColor = [UIColor greenColor];
 
-            
-            // for the top two levels of blocks, three hits are necessary for them to disappear
-            if (j == 0 ||  j == 1) {
-                block.numberOfHitsNecessaryForDissapearing = 3;
-            } else if (j == 2 || j == 3){
-                block.numberOfHitsNecessaryForDissapearing = 2;
-            } else {
-                block.numberOfHitsNecessaryForDissapearing = 1;
-            }
-            
-            brickX += 54;
-            
-        }
-        
-        brickY += 14;
-    }
-    
-    collisionBehavior.collisionDelegate = self;
-    
-    
-  */
     
 
 
