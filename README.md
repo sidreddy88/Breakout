@@ -1,5 +1,5 @@
 Breakout
 ========
-Arcade game built using UIKit
+Arcade game built using UIKit.
 
-Three levels - Beginner, Intermediate and Advanced
+Three levels - Beginner, Intermediate and Advanced.
